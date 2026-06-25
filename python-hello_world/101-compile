@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "Compiling $PYFILE ..."
-python3 -m py_compile $PYFILE
+python3 -m py_compile "$PYFILE"
+mv "${PYFILE}".pyc "${PYFILE}c" 2>/dev/null || true
