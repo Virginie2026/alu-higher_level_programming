@@ -82,17 +82,8 @@ class Rectangle:
 
     @classmethod
     def square(cls, size=0):
-        """Return a new Rectangle instance with width == height == size.
-
-        Args:
-            size (int): the size of the new square (default 0).
-
-        Raises:
-            TypeError: if size is not an integer.
-            ValueError: if size is less than 0.
-        """
-        if type(size) is not int:
-            raise TypeError("width must be an integer")
-        if size < 0:
-            raise ValueError("width must be >= 0")
-        return cls(size, size)
+        """Return a new Rectangle instance with width == height == size."""
+        new_rectangle = cls()
+        new_rectangle.width = size
+        new_rectangle.height = size
+        return new_rectangle
