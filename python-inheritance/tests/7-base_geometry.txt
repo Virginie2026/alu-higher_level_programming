@@ -9,25 +9,54 @@ Test area():
     Traceback (most recent call last):
     Exception: area() is not implemented
 
-Test integer_validator() with valid values:
+Test integer_validator() avec des arguments manquants:
 
+    >>> bg.integer_validator()
+    Traceback (most recent call last):
+    TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+    >>> bg.integer_validator("age")
+    Traceback (most recent call last):
+    TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+Test integer_validator() avec des valeurs valides:
+
+    >>> bg.integer_validator("age", 1)
     >>> bg.integer_validator("my_int", 12)
     >>> bg.integer_validator("width", 89)
 
-Test integer_validator() with a non-integer value:
-
-    >>> bg.integer_validator("name", "John")
-    Traceback (most recent call last):
-    TypeError: name must be an integer
-
-Test integer_validator() with zero:
+Test integer_validator() avec zéro et des nombres négatifs:
 
     >>> bg.integer_validator("age", 0)
     Traceback (most recent call last):
     ValueError: age must be greater than 0
 
-Test integer_validator() with a negative value:
-
-    >>> bg.integer_validator("distance", -4)
+    >>> bg.integer_validator("age", -4)
     Traceback (most recent call last):
-    ValueError: distance must be greater than 0
+    ValueError: age must be greater than 0
+
+Test integer_validator() avec différents types non-entiers:
+
+    >>> bg.integer_validator("age", "4")
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", (4,))
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", [3])
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", True)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", {3, 4})
+    Traceback (most recent call last):
+    TypeError: age must be an integer
+
+    >>> bg.integer_validator("age", None)
+    Traceback (most recent call last):
+    TypeError: age must be an integer
