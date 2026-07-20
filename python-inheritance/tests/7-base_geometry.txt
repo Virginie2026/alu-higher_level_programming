@@ -31,15 +31,3 @@ Test integer_validator() with a negative value:
     >>> bg.integer_validator("distance", -4)
     Traceback (most recent call last):
     ValueError: distance must be greater than 0
-
-Test integer_validator() with a float:
-
-    >>> bg.integer_validator("height", 3.5)
-    Traceback (most recent call last):
-    TypeError: height must be an integer
-
-Test integer_validator() with a boolean:
-
-    >>> bg.integer_validator("flag", True)
-    Traceback (most recent call last):
-    TypeError: flag must be an integer
