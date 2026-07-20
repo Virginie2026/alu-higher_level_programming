@@ -1,0 +1,41 @@
+The ``MyList`` class
+=====================
+
+Basic usage of print_sorted:
+
+    >>> MyList = __import__('1-my_list').MyList
+
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Empty list:
+
+    >>> empty = MyList()
+    >>> empty.print_sorted()
+    []
+
+Single element:
+
+    >>> single = MyList()
+    >>> single.append(42)
+    >>> single.print_sorted()
+    [42]
+
+Negative numbers:
+
+    >>> nums = MyList()
+    >>> nums.append(-3)
+    >>> nums.append(0)
+    >>> nums.append(-10)
+    >>> nums.print_sorted()
+    [-10, -3, 0]
