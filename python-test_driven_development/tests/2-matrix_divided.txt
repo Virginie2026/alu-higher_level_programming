@@ -66,6 +66,26 @@ Testing division by zero:
         ...
     ZeroDivisionError: division by zero
 
-Testing float infinity or NaN divisor:
+Testing float infinity divisor:
     >>> matrix_divided([[1, 2], [3, 4]], float('inf'))
     [[0.0, 0.0], [0.0, 0.0]]
+
+Testing matrix with float infinity element:
+    >>> matrix_divided([[float('inf'), 2], [3, 4]], 2)
+    [[inf, 1.0], [1.5, 2.0]]
+
+Testing matrix and divisor with float infinity/nan:
+    >>> matrix_divided([[float('inf'), 2], [3, 4]], float('inf'))
+    [[nan, 0.0], [0.0, 0.0]]
+
+Testing missing 1 argument:
+    >>> matrix_divided([[1, 2], [3, 4]])
+    Traceback (most recent call last):
+        ...
+    TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+Testing missing 2 arguments:
+    >>> matrix_divided()
+    Traceback (most recent call last):
+        ...
+    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
