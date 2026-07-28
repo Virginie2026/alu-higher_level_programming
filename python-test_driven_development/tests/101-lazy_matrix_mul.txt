@@ -24,25 +24,61 @@ Testing m_a not a list:
     >>> lazy_matrix_mul("not a list", [[1, 2], [3, 4]])
     Traceback (most recent call last):
         ...
-    ValueError: Scalar operands are not allowed, use '*' instead
+    TypeError: m_a must be a list
 
 Testing m_b not a list:
     >>> lazy_matrix_mul([[1, 2], [3, 4]], "not a list")
     Traceback (most recent call last):
         ...
-    ValueError: Scalar operands are not allowed, use '*' instead
+    TypeError: m_b must be a list
 
-Testing non-number elements in matrix:
+Testing m_a not a list of lists:
+    >>> lazy_matrix_mul([1, 2, 3], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+        ...
+    TypeError: m_a must be a list of lists
+
+Testing m_b not a list of lists:
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    TypeError: m_b must be a list of lists
+
+Testing empty m_a:
+    >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+        ...
+    ValueError: m_a can't be empty
+
+Testing m_b with empty sublist:
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[]])
+    Traceback (most recent call last):
+        ...
+    ValueError: m_b can't be empty
+
+Testing non-integer/non-float in m_a:
     >>> lazy_matrix_mul([[1, "hello"], [3, 4]], [[1, 2], [3, 4]])
     Traceback (most recent call last):
         ...
-    TypeError: invalid data type for einsum
+    TypeError: m_a should contain only integers or floats
 
-Testing incompatible matrix shapes for multiplication:
-    >>> lazy_matrix_mul([[1, 2, 3]], [[1, 2], [3, 4]])
+Testing m_a not rectangular:
+    >>> lazy_matrix_mul([[1, 2, 3], [4, 5]], [[1, 2], [3, 4]])
     Traceback (most recent call last):
         ...
-    ValueError: shapes (1,3) and (2,2) not aligned: 3 (dim 1) != 2 (dim 0)
+    TypeError: each row of m_a must be of the same size
+
+Testing m_b not rectangular:
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3], [4, 5]])
+    Traceback (most recent call last):
+        ...
+    TypeError: each row of m_b must be of the same size
+
+Testing incompatible matrix dimensions for multiplication:
+    >>> lazy_matrix_mul([[1, 2, 3], [3, 4, 5]], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+        ...
+    ValueError: m_a and m_b can't be multiplied
 
 Testing missing 1 argument:
     >>> lazy_matrix_mul([[1, 2], [3, 4]])
