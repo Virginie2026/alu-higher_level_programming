@@ -54,3 +54,15 @@ Testing list as argument:
     Traceback (most recent call last):
         ...
     TypeError: a must be an integer
+
+Testing float infinity (overflow):
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+        ...
+    OverflowError: cannot convert float infinity to integer
+
+Testing float NaN:
+    >>> add_integer(float('nan'))
+    Traceback (most recent call last):
+        ...
+    ValueError: cannot convert float NaN to integer
