@@ -1,14 +1,10 @@
 #!/usr/bin/python3
-"""
-Script that fetches https://alu-intranet.hbtn.io/status
-using the urllib package.
-"""
-import urllib.request
+"""Script that fetches the status of the Holberton intranet server."""
+from urllib.request import urlopen
 
 
 if __name__ == "__main__":
-    url = "https://alu-intranet.hbtn.io/status"
-    with urllib.request.urlopen(url) as response:
+    with urlopen("https://intranet.hbtn.io/status") as response:
         body = response.read()
         print("Body response:")
         print("\t- type: {}".format(type(body)))
