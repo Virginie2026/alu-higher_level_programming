@@ -9,7 +9,8 @@ def text_indentation(text):
     """
     Prints a text with 2 new lines after each '.', '?', and ':'.
 
-    There should be no space at the beginning or at the end of each printed line.
+    There should be no space at the beginning or at the end
+    of each printed line.
 
     Args:
         text (str): The text to print.

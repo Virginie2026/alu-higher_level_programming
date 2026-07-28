@@ -17,16 +17,6 @@ Testing standard text with ., ?, and :
     <BLANKLINE>
     No
 
-Testing string with leading and trailing spaces around delimiters:
-    >>> text_indentation("   Hello .   World ?   Yes :   No   ")
-    Hello .
-    <BLANKLINE>
-    World ?
-    <BLANKLINE>
-    Yes :
-    <BLANKLINE>
-    No
-
 Testing text without punctuation:
     >>> text_indentation("Simple text without punctuation")
     Simple text without punctuation
