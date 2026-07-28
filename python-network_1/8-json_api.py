@@ -1,20 +1,22 @@
 #!/usr/bin/python3
-"""Script that searches for a user by letter via a POST request."""
+"""Script that sends a POST request to http://0.0.0.0:5000/search_user
+with a given letter as parameter.
+"""
 import requests
 import sys
 
 
 if __name__ == "__main__":
     q = sys.argv[1] if len(sys.argv) > 1 else ""
-    response = requests.post("http://0.0.0.0:5000/search_user", data={"q": q})
+    url = "http://0.0.0.0:5000/search_user"
+    payload = {"q": q}
 
     try:
-        json_body = response.json()
+        response = requests.post(url, data=payload)
+        json_data = response.json()
+        if json_data:
+            print("[{}] {}".format(json_data.get("id"), json_data.get("name")))
+        else:
+            print("No result")
     except ValueError:
         print("Not a valid JSON")
-    else:
-        if not json_body:
-            print("No result")
-        else:
-            for user in json_body:
-                print("[{}] {}".format(user.get("id"), user.get("name")))
