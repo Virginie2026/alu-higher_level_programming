@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module defining the Rectangle class with updated display method."""
+"""Module defining the Rectangle class with update method using *args."""
 from models.base import Base
 
 
@@ -85,3 +85,10 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.x, self.y, self.width, self.height
         )
+
+    def update(self, *args):
+        """Assign an argument to each attribute using position."""
+        attrs = ["id", "width", "height", "x", "y"]
+        for i, arg in enumerate(args):
+            if i < len(attrs):
+                setattr(self, attrs[i], arg)
