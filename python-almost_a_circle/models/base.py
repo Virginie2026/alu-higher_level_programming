@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-"""Module defining the Base class with create class method."""
+"""Module defining the Base class with file deserialization to instances."""
 import json
+import os
 
 
 class Base:
@@ -55,3 +56,16 @@ class Base:
                 dummy = cls()
             dummy.update(**dictionary)
             return dummy
+
+    @classmethod
+    def load_from_file(cls):
+        """Return a list of instances loaded from a JSON file."""
+        filename = f"{cls.__name__}.json"
+        if not os.path.exists(filename):
+            return []
+
+        with open(filename, "r", encoding="utf-8") as f:
+            json_string = f.read()
+
+        list_dicts = cls.from_json_string(json_string)
+        return [cls.create(**d) for d in list_dicts]
