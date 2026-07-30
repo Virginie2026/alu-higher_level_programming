@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""Module defining the Rectangle class."""
+"""Module defining the Rectangle class with validation."""
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Rectangle class inheriting from Base."""
+    """Rectangle class inheriting from Base with attribute validation."""
 
     def __init__(self, width, height, x=0, y=0, id=None):
         """Initialize Rectangle instance."""
@@ -21,7 +21,11 @@ class Rectangle(Base):
 
     @width.setter
     def width(self, value):
-        """Set width."""
+        """Set width with type and value validation."""
+        if type(value) is not int:
+            raise TypeError("width must be an integer")
+        if value <= 0:
+            raise ValueError("width must be > 0")
         self.__width = value
 
     @property
@@ -31,7 +35,11 @@ class Rectangle(Base):
 
     @height.setter
     def height(self, value):
-        """Set height."""
+        """Set height with type and value validation."""
+        if type(value) is not int:
+            raise TypeError("height must be an integer")
+        if value <= 0:
+            raise ValueError("height must be > 0")
         self.__height = value
 
     @property
@@ -41,7 +49,11 @@ class Rectangle(Base):
 
     @x.setter
     def x(self, value):
-        """Set x."""
+        """Set x with type and value validation."""
+        if type(value) is not int:
+            raise TypeError("x must be an integer")
+        if value < 0:
+            raise ValueError("x must be >= 0")
         self.__x = value
 
     @property
@@ -51,5 +63,9 @@ class Rectangle(Base):
 
     @y.setter
     def y(self, value):
-        """Set y."""
+        """Set y with type and value validation."""
+        if type(value) is not int:
+            raise TypeError("y must be an integer")
+        if value < 0:
+            raise ValueError("y must be >= 0")
         self.__y = value
