@@ -2,7 +2,7 @@
 """Deletes all State objects with a name containing 'a' from database."""
 import sys
 from model_state import Base, State
-from sqlalchemy import create_engine, literal_column
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
@@ -23,12 +23,13 @@ if __name__ == "__main__":
 
     states_to_delete = (
         session.query(State)
-        .filter(State.name.like(literal_column("BINARY '%a%'")))
+        .filter(State.name.like('%a%'))
         .all()
     )
 
     for state in states_to_delete:
-        session.delete(state)
+        if 'a' in state.name:
+            session.delete(state)
 
     session.commit()
     session.close()
