@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module defining the Base class with JSON serialization to file."""
+"""Module defining the Base class with JSON deserialization."""
 import json
 
 
@@ -35,3 +35,10 @@ class Base:
         json_string = cls.to_json_string(list_dicts)
         with open(filename, "w", encoding="utf-8") as f:
             f.write(json_string)
+
+    @staticmethod
+    def from_json_string(json_string):
+        """Return the list of the JSON string representation json_string."""
+        if json_string is None or len(json_string) == 0:
+            return []
+        return json.loads(json_string)
