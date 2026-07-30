@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module defining the Rectangle class with display method."""
+"""Module defining the Rectangle class with __str__ method."""
 from models.base import Base
 
 
@@ -78,3 +78,7 @@ class Rectangle(Base):
         """Print the Rectangle instance with the character # in stdout."""
         for _ in range(self.height):
             print("#" * self.width)
+
+    def __str__(self):
+        """Return [Rectangle] (<id>) <x>/<y> - <width>/<height>."""
+        return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
