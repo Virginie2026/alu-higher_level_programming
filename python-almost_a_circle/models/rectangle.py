@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module defining Rectangle class with update (*args, **kwargs)."""
+"""Module defining Rectangle class with to_dictionary method."""
 from models.base import Base
 
 
@@ -97,3 +97,13 @@ class Rectangle(Base):
             for key, value in kwargs.items():
                 if hasattr(self, key):
                     setattr(self, key, value)
+
+    def to_dictionary(self):
+        """Return the dictionary representation of a Rectangle."""
+        return {
+            'id': self.id,
+            'width': self.width,
+            'height': self.height,
+            'x': self.x,
+            'y': self.y
+        }
