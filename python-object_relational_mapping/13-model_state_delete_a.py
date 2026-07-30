@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""Deletes all State objects with a name containing 'a' from database."""
+"""Deletes all State objects with a name containing the letter 'a'."""
 import sys
 from model_state import Base, State
-from sqlalchemy import create_engine, binary
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
@@ -21,9 +21,9 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    session.query(State).filter(
-        binary(State.name).like('%a%')
-    ).delete(synchronize_session=False)
+    states = session.query(State).filter(State.name.like('%a%')).all()
+    for state in states:
+        session.delete(state)
 
     session.commit()
     session.close()
