@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Module defining the Base class with file deserialization to instances."""
+"""Module defining the Base class with JSON and CSV serialization."""
+import csv
 import json
 import os
 
@@ -69,3 +70,46 @@ class Base:
 
         list_dicts = cls.from_json_string(json_string)
         return [cls.create(**d) for d in list_dicts]
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Serialize list_objs to a CSV file."""
+        filename = f"{cls.__name__}.csv"
+        with open(filename, "w", newline="", encoding="utf-8") as f:
+            if list_objs is None or len(list_objs) == 0:
+                f.write("")
+                return
+
+            writer = csv.writer(f)
+            if cls.__name__ == "Rectangle":
+                fieldnames = ["id", "width", "height", "x", "y"]
+            elif cls.__name__ == "Square":
+                fieldnames = ["id", "size", "x", "y"]
+
+            for obj in list_objs:
+                writer.writerow([getattr(obj, field) for field in fieldnames])
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """Deserialize instances from a CSV file."""
+        filename = f"{cls.__name__}.csv"
+        if not os.path.exists(filename):
+            return []
+
+        instances = []
+        with open(filename, "r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            if cls.__name__ == "Rectangle":
+                fieldnames = ["id", "width", "height", "x", "y"]
+            elif cls.__name__ == "Square":
+                fieldnames = ["id", "size", "x", "y"]
+
+            for row in reader:
+                if not row:
+                    continue
+                dict_repr = {
+                    fieldnames[i]: int(row[i]) for i in range(len(fieldnames))
+                }
+                instances.append(cls.create(**dict_repr))
+
+        return instances
