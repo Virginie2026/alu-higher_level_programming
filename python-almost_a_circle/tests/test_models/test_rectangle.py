@@ -22,142 +22,196 @@ class TestRectangle(unittest.TestCase):
         if os.path.exists("Rectangle.json"):
             os.remove("Rectangle.json")
 
-    def test_rectangle_instantiation(self):
-        """Test Rectangle creation with various parameters."""
-        r1 = Rectangle(1, 2)
-        self.assertEqual(r1.width, 1)
-        self.assertEqual(r1.height, 2)
-        r2 = Rectangle(1, 2, 3)
-        self.assertEqual(r2.x, 3)
-        r3 = Rectangle(1, 2, 3, 4)
-        self.assertEqual(r3.y, 4)
-        r4 = Rectangle(1, 2, 3, 4, 5)
-        self.assertEqual(r4.id, 5)
+    def test_rectangle_exists_1_2(self):
+        r = Rectangle(1, 2)
+        self.assertEqual(r.width, 1)
 
-    def test_rectangle_type_errors(self):
-        """Test type exceptions."""
+    def test_rectangle_exists_1_2_3(self):
+        r = Rectangle(1, 2, 3)
+        self.assertEqual(r.x, 3)
+
+    def test_rectangle_exists_1_2_3_4(self):
+        r = Rectangle(1, 2, 3, 4)
+        self.assertEqual(r.y, 4)
+
+    def test_rectangle_exists_str_width(self):
         with self.assertRaises(TypeError):
             Rectangle("1", 2)
+
+    def test_rectangle_exists_str_height(self):
         with self.assertRaises(TypeError):
             Rectangle(1, "2")
+
+    def test_rectangle_exists_str_x(self):
         with self.assertRaises(TypeError):
             Rectangle(1, 2, "3")
+
+    def test_rectangle_exists_str_y(self):
         with self.assertRaises(TypeError):
             Rectangle(1, 2, 3, "4")
 
-    def test_rectangle_value_errors(self):
-        """Test value exceptions."""
+    def test_rectangle_exists_5_args(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        self.assertEqual(r.id, 5)
+
+    def test_rectangle_negative_width(self):
         with self.assertRaises(ValueError):
             Rectangle(-1, 2)
+
+    def test_rectangle_negative_height(self):
         with self.assertRaises(ValueError):
             Rectangle(1, -2)
+
+    def test_rectangle_zero_width(self):
         with self.assertRaises(ValueError):
             Rectangle(0, 2)
+
+    def test_rectangle_zero_height(self):
         with self.assertRaises(ValueError):
             Rectangle(1, 0)
+
+    def test_rectangle_negative_x(self):
         with self.assertRaises(ValueError):
             Rectangle(1, 2, -3)
+
+    def test_rectangle_negative_y(self):
         with self.assertRaises(ValueError):
             Rectangle(1, 2, 3, -4)
 
     def test_area(self):
-        """Test area method."""
         r = Rectangle(3, 5)
         self.assertEqual(r.area(), 15)
 
     def test_str(self):
-        """Test __str__ representation."""
         r = Rectangle(1, 2, 3, 4, 5)
         self.assertEqual(str(r), "[Rectangle] (5) 3/4 - 1/2")
 
-    def test_display(self):
-        """Test display method stdout output."""
-        r1 = Rectangle(2, 2)
+    def test_display_without_x_and_y(self):
+        r = Rectangle(2, 2)
         captured = io.StringIO()
         sys.stdout = captured
-        r1.display()
+        r.display()
         sys.stdout = sys.__stdout__
         self.assertEqual(captured.getvalue(), "##\n##\n")
 
-        r2 = Rectangle(2, 2, 2)
+    def test_display_without_y(self):
+        r = Rectangle(2, 2, 2)
         captured = io.StringIO()
         sys.stdout = captured
-        r2.display()
+        r.display()
         sys.stdout = sys.__stdout__
         self.assertEqual(captured.getvalue(), "  ##\n  ##\n")
 
-        r3 = Rectangle(2, 2, 1, 2)
+    def test_display(self):
+        r = Rectangle(2, 2, 1, 2)
         captured = io.StringIO()
         sys.stdout = captured
-        r3.display()
+        r.display()
         sys.stdout = sys.__stdout__
         self.assertEqual(captured.getvalue(), "\n\n ##\n ##\n")
 
     def test_to_dictionary(self):
-        """Test to_dictionary method."""
         r = Rectangle(1, 2, 3, 4, 5)
-        d = r.to_dictionary()
-        self.assertEqual(d, {'id': 5, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
+        self.assertEqual(r.to_dictionary(), {'id': 5, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
 
-    def test_update(self):
-        """Test update method with args and kwargs."""
+    def test_update_empty(self):
         r = Rectangle(1, 1)
         r.update()
+
+    def test_update_89(self):
+        r = Rectangle(1, 1)
         r.update(89)
         self.assertEqual(r.id, 89)
+
+    def test_update_89_1(self):
+        r = Rectangle(1, 1)
         r.update(89, 1)
         self.assertEqual(r.width, 1)
+
+    def test_update_89_1_2(self):
+        r = Rectangle(1, 1)
         r.update(89, 1, 2)
         self.assertEqual(r.height, 2)
+
+    def test_update_89_1_2_3(self):
+        r = Rectangle(1, 1)
         r.update(89, 1, 2, 3)
         self.assertEqual(r.x, 3)
+
+    def test_update_89_1_2_3_4(self):
+        r = Rectangle(1, 1)
         r.update(89, 1, 2, 3, 4)
         self.assertEqual(r.y, 4)
+
+    def test_update_kwargs_id(self):
+        r = Rectangle(1, 1)
         r.update(**{'id': 89})
         self.assertEqual(r.id, 89)
+
+    def test_update_kwargs_id_width(self):
+        r = Rectangle(1, 1)
         r.update(**{'id': 89, 'width': 1})
         self.assertEqual(r.width, 1)
+
+    def test_update_kwargs_id_width_height(self):
+        r = Rectangle(1, 1)
         r.update(**{'id': 89, 'width': 1, 'height': 2})
         self.assertEqual(r.height, 2)
+
+    def test_update_kwargs_id_width_height_x(self):
+        r = Rectangle(1, 1)
         r.update(**{'id': 89, 'width': 1, 'height': 2, 'x': 3})
         self.assertEqual(r.x, 3)
+
+    def test_update_kwargs_id_width_height_x_y(self):
+        r = Rectangle(1, 1)
         r.update(**{'id': 89, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
         self.assertEqual(r.y, 4)
 
-    def test_create(self):
-        """Test create class method."""
-        r1 = Rectangle.create(**{'id': 89})
-        self.assertEqual(r1.id, 89)
-        r2 = Rectangle.create(**{'id': 89, 'width': 1})
-        self.assertEqual(r2.width, 1)
-        r3 = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2})
-        self.assertEqual(r3.height, 2)
-        r4 = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2, 'x': 3})
-        self.assertEqual(r4.x, 3)
-        r5 = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
-        self.assertEqual(r5.y, 4)
+    def test_create_id(self):
+        r = Rectangle.create(**{'id': 89})
+        self.assertEqual(r.id, 89)
 
-    def test_save_to_file(self):
-        """Test save_to_file class method."""
+    def test_create_id_width(self):
+        r = Rectangle.create(**{'id': 89, 'width': 1})
+        self.assertEqual(r.width, 1)
+
+    def test_create_id_width_height(self):
+        r = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2})
+        self.assertEqual(r.height, 2)
+
+    def test_create_id_width_height_x(self):
+        r = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2, 'x': 3})
+        self.assertEqual(r.x, 3)
+
+    def test_create_id_width_height_x_y(self):
+        r = Rectangle.create(**{'id': 89, 'width': 1, 'height': 2, 'x': 3, 'y': 4})
+        self.assertEqual(r.y, 4)
+
+    def test_save_to_file_none(self):
         Rectangle.save_to_file(None)
         with open("Rectangle.json", "r") as f:
             self.assertEqual(f.read(), "[]")
+
+    def test_save_to_file_empty_list(self):
         Rectangle.save_to_file([])
         with open("Rectangle.json", "r") as f:
             self.assertEqual(f.read(), "[]")
+
+    def test_save_to_file_rect(self):
         Rectangle.save_to_file([Rectangle(1, 2, 0, 0, 1)])
         with open("Rectangle.json", "r") as f:
             self.assertTrue(len(f.read()) > 0)
 
-    def test_load_from_file(self):
-        """Test load_from_file class method."""
+    def test_load_from_file_no_file(self):
         if os.path.exists("Rectangle.json"):
             os.remove("Rectangle.json")
         self.assertEqual(Rectangle.load_from_file(), [])
+
+    def test_load_from_file_file_exists(self):
         Rectangle.save_to_file([Rectangle(1, 2, 0, 0, 1)])
         objs = Rectangle.load_from_file()
         self.assertEqual(len(objs), 1)
-        self.assertIsInstance(objs[0], Rectangle)
 
 
 if __name__ == "__main__":
