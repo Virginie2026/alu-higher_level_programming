@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module defining the Square class with update method."""
+"""Module defining the Square class with to_dictionary method."""
 from models.rectangle import Rectangle
 
 
@@ -38,3 +38,12 @@ class Square(Rectangle):
             for key, value in kwargs.items():
                 if hasattr(self, key):
                     setattr(self, key, value)
+
+    def to_dictionary(self):
+        """Return the dictionary representation of a Square."""
+        return {
+            'id': self.id,
+            'size': self.size,
+            'x': self.x,
+            'y': self.y
+        }
